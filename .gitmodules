@@ -7,3 +7,6 @@
 [submodule "src/ros_bms_msg"]
 	path = src/ros_bms_msg
 	url = https://github.com/hmxf/ros_bms_msg
+[submodule "src/imu_gps_fusion"]
+	path = src/imu_gps_fusion
+	url = https://github.com/hmxf/imu_gps_fusion
