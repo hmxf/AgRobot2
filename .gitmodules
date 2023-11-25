@@ -4,3 +4,6 @@
 [submodule "src/ros_modbus_msg"]
 	path = src/ros_modbus_msg
 	url = https://github.com/hmxf/ros_modbus_msg
+[submodule "src/ros_bms_msg"]
+	path = src/ros_bms_msg
+	url = https://github.com/hmxf/ros_bms_msg
