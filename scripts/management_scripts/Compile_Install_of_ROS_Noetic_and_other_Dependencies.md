@@ -215,12 +215,12 @@
 
     ***除非你知道自己在做什么，否则建议首次安装时跳过该步骤，以免因为依赖问题导致部分包同时被编译安装和包管理器安装（注意选择正确的 Tag 或分支）***
 
-    [AgRobot2]() 项目的依赖树和版本需求
+    [AgRobot2](https://github.com/hmxf/AgRobot2) 项目的依赖树和版本需求
 
     - [ros_ht_msg](https://github.com/hmxf/ros_ht_msg)
         - 无
     - [ros_modbus_msg](https://github.com/hmxf/ros_modbus_msg)
-        - 无
+        - 无（虽然本项目依赖 `pymodbus` 包的特定版本，但该包并非 ROS 包）
     - [ros_bms_msg](https://github.com/hmxf/ros_bms_msg)
         - [ros-noetic-serial](https://github.com/wjwwood/serial/tree/1.2.1)
     - [imu_gps_fusion](https://github.com/hmxf/imu_gps_fusion)
@@ -228,16 +228,17 @@
         - [ros-noetic-gps-common](https://github.com/swri-robotics/gps_umd/tree/0.3.4)
         - [ros-noetic-navigation 和 ros-noetic-move-base](https://github.com/ros-planning/navigation/tree/1.17.3)
             - [ros-noetic-navigation-msgs](https://github.com/ros-planning/navigation_msgs/tree/1.14.1)
-            
+
     - 通过 `git clone` 方式添加：
 
-        bash
+        ```bash
         src && git clone https://github.com/wjwwood/serial && cd serial && git checkout 1.2.1 && cd ../..
         src && git clone https://github.com/ros-drivers/rosserial && cd rosserial && git checkout 0.9.2 && cd ../..
         src && git clone https://github.com/ros-industrial/ros_canopen && cd ros_canopen && git checkout 0.8.5 && cd ../..
         src && git clone https://github.com/locusrobotics/catkin_virtualenv && cd catkin_virtualenv && git checkout 0.6.1 && cd ../..
         src && git clone https://github.com/swri-robotics/gps_umd && cd gps_umd && git checkout 0.3.4 && cd ../..
         src && git clone https://github.com/ros-planning/navigation && cd navigation && git checkout 1.17.3 && cd ../..
+        ```
 
     - 通过修改 `.rosinstall` 文件方式添加：
 
@@ -435,14 +436,16 @@
     #All required rosdeps installed successfully
     ```
 
-- 编译安装 ROS
+- 创建编译目标路径并编译安装 ROS
+
+    在 Ubuntu 系统中，通过 APT 安装的 ROS 默认路径位于 `/opt/ros/noetic` 中，因此强烈不建议将源码编译的 ROS 环境同样定位到该路径，建议选择其他有写入权限的路径。
 
     ```bash
     mkdir -p /ros/noetic
     ./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 --install-space /ros/noetic
     ```
 
-- 如果要更新已编译安装完成的 ROS 则需要从 `获取 ROS 源码` 步骤开始重新执行整个编译安装过程，如果要添加新的 ROS 包则需要从 `解决依赖` 步骤开始重新执行整个编译安装过程
+- 如果要更新已编译安装完成的 ROS 则需要从 `获取 ROS 源码` 步骤开始重新执行整个编译安装过程，如果要添加新的 ROS 包则需要从 `解决依赖` 步骤开始重新执行整个编译安装过程。
 
 ## 安装 pyModbus
 
@@ -458,6 +461,12 @@
 
     ```bash
     sudo apt install python3-pip
+    pip install -r requirements.txt
+    ```
+
+    如果上面的指令执行报错且报错信息与 `docutils` 的版本相关，执行下面的命令应当有助于解决问题。
+
+    ```bash
     pip install --upgrade docutils==0.18.1
     pip install -r requirements.txt
     ```
