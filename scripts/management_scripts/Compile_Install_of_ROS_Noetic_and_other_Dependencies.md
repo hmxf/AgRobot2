@@ -65,6 +65,10 @@
 - 准备安装环境
 
     ```bash
+    wget https://mirrors.tuna.tsinghua.edu.cn/ubuntu/pool/main/p/python-docutils/python3-docutils_0.20.1%2Bdfsg-2_all.deb
+    wget https://mirrors.tuna.tsinghua.edu.cn/ubuntu/pool/main/p/python-docutils/docutils-common_0.20.1%2Bdfsg-2_all.deb
+    wget https://mirrors.tuna.tsinghua.edu.cn/ubuntu/pool/main/p/python-docutils/docutils-doc_0.20.1%2Bdfsg-2_all.deb
+    sudo dpkg -i docutils-common_0.20.1+dfsg-2_all.deb docutils-doc_0.20.1+dfsg-2_all.deb python3-docutils_0.20.1+dfsg-2_all.deb
     sudo apt install python3-rosdep python3-rosinstall-generator python3-vcstools python3-vcstool build-essential python3-catkin-tools libgoogle-glog-dev hugin-tools enblend glibc-doc
     sudo rosdep init && rosdep update
     ```
@@ -78,6 +82,20 @@
     mkdir -p /ros/build/noetic && cd /ros/build/noetic
     ```
     **务必记得为 `/dev/nvme0n1` 添加开机自动挂载，否则 ROS 将无法正常工作**
+
+    开机自动挂载功能可以通过将以下行写入 `/etc/fstab` 文件并重启完成，务必注意盘符和路径可能需要按照实际情况修改
+
+    ```
+    /dev/nvme0n1  /ros  ext4  defaults  0  1
+    ```
+
+    重启后使用 `mount -l | grep ros` 确认挂载情况，出现如下输出则表示开机自动挂载配置成功且已成功挂载
+
+    ```
+    /dev/nvme0n1 on /ros type ext4 (rw,relatime,stripe=32)
+    ```
+
+
 
 - 获取 ROS 源码目录
 
