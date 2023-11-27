@@ -1,3 +1,6 @@
+[submodule "scripts/mgmt_scripts/sysenv_setup/ROSource"]
+	path = scripts/mgmt_scripts/sysenv_setup/ROSource
+	url = https://github.com/hmxf/ROSource
 [submodule "src/ros_ht_msg"]
 	path = src/ros_ht_msg
 	url = https://github.com/hmxf/ros_ht_msg
@@ -7,3 +10,4 @@
 [submodule "src/ros_bms_msg"]
 	path = src/ros_bms_msg
 	url = https://github.com/hmxf/ros_bms_msg
+
